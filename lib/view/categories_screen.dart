@@ -117,7 +117,11 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                           return Text(dataController.userList!.data!
                               .bestsellerProducts![index].name!);
                         } else {
-                          return Container();
+                          return Container(
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
                         }
                       },
                     ),

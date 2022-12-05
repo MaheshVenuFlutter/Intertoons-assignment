@@ -334,7 +334,6 @@ class _UserDetailState extends State<UserDetail> {
                                               ),
                                               //price of the product==================
                                               Text(
-                                                maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                                 "Price: ${dataController.userList!.data!.bestsellerProducts![index].price!}",
                                                 style: const TextStyle(

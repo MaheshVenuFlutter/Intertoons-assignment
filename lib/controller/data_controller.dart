@@ -7,10 +7,10 @@ import '../models/user_model.dart';
 
 class DataController extends GetxController {
   Product? userList;
-  var isDataLoading = false.obs;
+  var isHomePageDataLoading = false.obs;
   getUserUInfo() async {
     try {
-      isDataLoading(true);
+      isHomePageDataLoading(true);
       http.Response response = await http.get(
           Uri.tryParse('http://fda.intertoons.com/api/V1/home')!,
           headers: {'Authorization': 'Bearer akhil@intertoons.com'});
@@ -24,7 +24,7 @@ class DataController extends GetxController {
     } catch (e) {
       print("Error while getting api");
     } finally {
-      isDataLoading(false);
+      isHomePageDataLoading(false);
     }
   }
 }

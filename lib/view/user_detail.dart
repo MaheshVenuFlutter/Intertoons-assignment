@@ -32,7 +32,7 @@ class _UserDetailState extends State<UserDetail> {
         title: Text("new app bar"),
       ),
       body: Obx(
-        () => dataController.isDataLoading.value
+        () => dataController.isHomePageDataLoading.value
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
                 child: Column(

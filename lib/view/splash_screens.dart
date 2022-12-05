@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 
 import 'package:need_to/view/user_detail.dart';
 
+import 'categories_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -23,11 +25,21 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           children: [
             Center(
-              child: ElevatedButton(
-                child: Text("get data"),
-                onPressed: (() {
-                  Get.to(() => UserDetail());
-                }),
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    child: Text("get data"),
+                    onPressed: (() {
+                      Get.to(() => UserDetail());
+                    }),
+                  ),
+                  ElevatedButton(
+                    child: Text("get data"),
+                    onPressed: (() {
+                      Get.to(() => CategoriesScreen());
+                    }),
+                  ),
+                ],
               ),
             )
           ],

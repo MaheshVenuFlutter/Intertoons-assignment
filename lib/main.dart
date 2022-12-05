@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:need_to/view/categories_screen.dart';
 import 'package:need_to/view/splash_screens.dart';
 
 void main() {

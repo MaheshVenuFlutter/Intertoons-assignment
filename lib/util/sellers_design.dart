@@ -19,8 +19,8 @@
 //   Widget build(BuildContext context) {
 //     return InkWell(
 //       onTap: () {
-//         // Navigator.push(context,
-//         //     MaterialPageRoute(builder: (c) => MenuScreen(model: widget.model)));
+//         Navigator.push(context,
+//             MaterialPageRoute(builder: (c) => MenuScreen(model: widget.model)));
 //       },
 //       splashColor: Colors.amber,
 //       child: Padding(

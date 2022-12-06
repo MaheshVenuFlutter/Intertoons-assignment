@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:need_to/controller/category_controller.dart';
 import 'package:need_to/controller/data_controller.dart';
+import 'package:need_to/view/variations_screen.dart';
+
+import '../models/user_model.dart';
+import '../util/menu_item_card.dart';
 
 class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({super.key});
+  Product? model;
+  BuildContext? context;
+  CategoriesScreen({super.key, this.model, this.context});
 
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
@@ -39,7 +45,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                     height: 50,
                   ),
                   const Text(
-                    "Category",
+                    "Explore menu",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
@@ -110,18 +116,28 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                       physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        var currentProduct = dataController
+                            .userList!.data!.bestsellerProducts![index];
                         late String catgeryIId = dataController.userList!.data!
                             .bestsellerProducts![index].categoryId
                             .toString();
+
                         if (catgeryIId.toString().contains(search.toString())) {
-                          return Text(dataController.userList!.data!
-                              .bestsellerProducts![index].name!);
-                        } else {
-                          return Container(
-                            child: const Center(
-                              child: CircularProgressIndicator(),
-                            ),
+                          return menuitemCard(
+                            index: index,
+                            dataController: dataController,
+                            variationdClickHandler: () {
+                              if (currentProduct.variations != null) {
+                                Get.to(() => VariationScreen(
+                                      indexx: index,
+                                    ));
+                              }
+
+                              print(currentProduct.variations);
+                            },
                           );
+                        } else {
+                          return Container();
                         }
                       },
                     ),

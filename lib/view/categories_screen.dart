@@ -18,7 +18,9 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen>
     with TickerProviderStateMixin {
-  String search = " ";
+  String search = "94";
+  var addButtonVisibility;
+  var moreOptionsVisibility;
 
   //CategoryController dependency injection//=========================
   CategoryController categoryController = Get.put(CategoryController());
@@ -70,8 +72,10 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  print(categoryController
-                                      .categoryList!.data![index].catId);
+                                  print(
+                                    categoryController
+                                        .categoryList!.data![index].catId,
+                                  );
                                   setState(() {
                                     search = categoryController
                                         .categoryList!.data![index].catId
@@ -104,44 +108,62 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                     height: 20,
                   ),
                   Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: Container(
-                    child: ListView.separated(
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                          height: 10,
-                        );
-                      },
-                      itemCount: dataController
-                          .userList!.data!.bestsellerProducts!.length,
-                      physics: BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        var currentProduct = dataController
-                            .userList!.data!.bestsellerProducts![index];
-                        late String catgeryIId = dataController.userList!.data!
-                            .bestsellerProducts![index].categoryId
-                            .toString();
+                        margin: const EdgeInsets.only(right: 10, left: 10),
+                        child: ListView.separated(
+                          separatorBuilder: (context, index) {
+                            return const SizedBox(
+                              height: 10,
+                            );
+                          },
+                          itemCount: dataController
+                              .userList!.data!.bestsellerProducts!.length,
+                          physics: BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            bool addButtonVisibility = false;
+                            var currentProduct = dataController
+                                .userList!.data!.bestsellerProducts![index];
 
-                        if (catgeryIId.toString().contains(search.toString())) {
-                          return menuitemCard(
-                            index: index,
-                            dataController: dataController,
-                            variationdClickHandler: () {
-                              if (currentProduct.variations != null) {
-                                Get.to(() => VariationScreen(
-                                      indexx: index,
-                                    ));
-                              }
+                            late String catgeryIId = dataController.userList!
+                                .data!.bestsellerProducts![index].categoryId
+                                .toString();
+                            if (currentProduct.variations == null) {
+                              addButtonVisibility = true;
+                              moreOptionsVisibility = false;
+                            } else {
+                              moreOptionsVisibility = true;
+                            }
+                            if (catgeryIId
+                                .toString()
+                                .contains(search.toString())) {
+                              return menuitemCard(
+                                moreOptionsVisibility: moreOptionsVisibility,
+                                addButtonVisibility: addButtonVisibility,
+                                index: index,
+                                dataController: dataController,
+                                variationdClickHandler: () {
+                                  if (currentProduct.variations != null) {
+                                    Get.to(() => VariationScreen(
+                                          indexx: index,
+                                        ));
+                                  } else {}
 
-                              print(currentProduct.variations);
-                            },
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
+                                  print(currentProduct.variations);
+                                },
+                              );
+                            } else {
+                              return Container();
+                            }
+                          },
+                        ),
+                      ),
                     ),
-                  ))
+                  ),
                 ],
               ),
       ),

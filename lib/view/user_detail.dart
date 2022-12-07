@@ -7,7 +7,7 @@ import 'package:need_to/controller/data_controller.dart';
 import 'package:need_to/util/app_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../util/Icon_and_text_widget.dart';
+import '../util/icon_and_text_widget.dart';
 
 class UserDetail extends StatefulWidget {
   const UserDetail({super.key});

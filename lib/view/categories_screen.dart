@@ -1,7 +1,10 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:need_to/controller/cart_controller.dart';
 import 'package:need_to/controller/category_controller.dart';
 import 'package:need_to/controller/data_controller.dart';
+import 'package:need_to/view/cart_page.dart';
 import 'package:need_to/view/variations_screen.dart';
 
 import '../models/user_model.dart';
@@ -25,26 +28,63 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   //CategoryController dependency injection//=========================
   CategoryController categoryController = Get.put(CategoryController());
   DataController dataController = Get.put(DataController());
-
+  CartController cartController = Get.find();
   @override
   void initState() {
     categoryController.getCategoryData();
     dataController.getUserUInfo();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    // tab bar comtroller//===================================
-
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 60,
+        backgroundColor: Colors.blue,
+        elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back)),
+        actions: [
+          InkWell(
+            onTap: () {
+              Get.to(() => CartPage());
+            },
+            child: Badge(
+                toAnimate: true,
+                animationType: BadgeAnimationType.scale,
+                position: BadgePosition.topEnd(top: 15, end: 40),
+                elevation: 0,
+                badgeContent: Obx(
+                  () => Text(
+                    cartController.numberOfItemsInCart.toString(),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: Colors.white),
+                  ),
+                ),
+                child: Icon(
+                  Icons.shopping_cart_checkout,
+                  size: 40,
+                )),
+          ),
+          const SizedBox(
+            width: 10,
+          )
+        ],
+      ),
       body: Obx(
         () => dataController.isHomePageDataLoading.value
             ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
                   const SizedBox(
-                    height: 50,
+                    height: 20,
                   ),
                   const Text(
                     "Explore menu",

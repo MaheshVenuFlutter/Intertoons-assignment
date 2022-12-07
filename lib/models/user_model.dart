@@ -165,6 +165,10 @@ class BestsellerProduct {
             : List<dynamic>.from(variations!.map((x) => x.toJson())),
         "order_count": orderCount,
       };
+
+  toMap() {}
+
+  static fromMap(Map<String, dynamic> map) {}
 }
 
 class BestsellerProductVariation {

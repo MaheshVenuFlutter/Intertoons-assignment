@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:need_to/controller/cart_controller.dart';
 
 import '../controller/data_controller.dart';
 
@@ -17,17 +19,47 @@ class VariationScreen extends StatefulWidget {
 class _VariationScreenState extends State<VariationScreen> {
   //CategoryController dependency injection//=========================
   DataController dataController = Get.put(DataController());
-
+  CartController cartController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 60,
+        backgroundColor: Colors.blue,
+        elevation: 0,
+        leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: Icon(Icons.arrow_back)),
+        actions: [
+          Badge(
+              toAnimate: true,
+              animationType: BadgeAnimationType.scale,
+              position: BadgePosition.topEnd(top: 15, end: 30),
+              elevation: 0,
+              badgeContent: Obx(
+                () => Text(
+                  cartController.numberOfItemsInCart.toString(),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22,
+                      color: Colors.white),
+                ),
+              ),
+              child: Icon(Icons.shopping_cart_checkout)),
+          const SizedBox(
+            width: 10,
+          )
+        ],
+      ),
       body: Obx(
         () => dataController.isHomePageDataLoading.value
             ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
                   const SizedBox(
-                    height: 40,
+                    height: 10,
                   ),
                   Text(
                     dataController.userList!.data!
@@ -36,6 +68,9 @@ class _VariationScreenState extends State<VariationScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                     ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                   Expanded(
                     child: Container(
@@ -129,7 +164,9 @@ class _VariationScreenState extends State<VariationScreen> {
                                                 width: 100,
                                                 height: 40,
                                                 child: ElevatedButton(
-                                                  onPressed: () {},
+                                                  onPressed: () {
+                                                    cartController.addItem();
+                                                  },
                                                   child: Text(
                                                     "add",
                                                     style: TextStyle(

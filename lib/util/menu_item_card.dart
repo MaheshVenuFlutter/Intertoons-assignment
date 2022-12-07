@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:need_to/models/user_model.dart';
 
+import '../controller/cart_controller.dart';
 import '../controller/data_controller.dart';
+import '../models/cart_product_model.dart';
 
 class menuitemCard extends StatelessWidget {
   menuitemCard(
@@ -18,7 +22,7 @@ class menuitemCard extends StatelessWidget {
   var addButtonVisibility;
   var moreOptionsVisibility;
   var textsize;
-
+  CartController cartController = Get.find();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -101,7 +105,11 @@ class menuitemCard extends StatelessWidget {
                                 child: Visibility(
                                   visible: addButtonVisibility,
                                   child: ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      cartController.addToCartList(
+                                          dataController.userList!.data!
+                                              .bestsellerProducts![index]);
+                                    },
                                     child: Text(
                                       "add",
                                       style: TextStyle(

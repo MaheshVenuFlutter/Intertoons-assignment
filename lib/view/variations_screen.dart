@@ -4,6 +4,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:need_to/controller/cart_controller.dart';
+import 'package:need_to/models/user_model.dart';
 
 import '../controller/data_controller.dart';
 
@@ -165,7 +166,8 @@ class _VariationScreenState extends State<VariationScreen> {
                                                 height: 40,
                                                 child: ElevatedButton(
                                                   onPressed: () {
-                                                    cartController.addItem();
+                                                    cartController.additemToCart(
+                                                        BestsellerProduct());
                                                   },
                                                   child: Text(
                                                     "add",

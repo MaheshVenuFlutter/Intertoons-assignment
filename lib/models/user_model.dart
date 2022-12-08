@@ -92,6 +92,7 @@ class Banner {
 class BestsellerProduct {
   BestsellerProduct({
     this.id,
+    this.qty,
     this.name,
     this.sku,
     this.categoryId,
@@ -109,6 +110,7 @@ class BestsellerProduct {
   });
 
   int? id;
+  int? qty;
   String? name;
   String? sku;
   String? categoryId;
@@ -127,6 +129,7 @@ class BestsellerProduct {
   factory BestsellerProduct.fromJson(Map<String, dynamic> json) =>
       BestsellerProduct(
         id: json["id"],
+        qty: json["qty"],
         name: json["name"],
         sku: json["sku"],
         categoryId: json["category_id"],
@@ -148,6 +151,7 @@ class BestsellerProduct {
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "qty": qty,
         "name": name,
         "sku": sku,
         "category_id": categoryId,

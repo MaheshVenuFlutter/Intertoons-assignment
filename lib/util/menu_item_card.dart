@@ -106,7 +106,7 @@ class menuitemCard extends StatelessWidget {
                                   visible: addButtonVisibility,
                                   child: ElevatedButton(
                                     onPressed: () {
-                                      cartController.addToCartList(
+                                      cartController.additemToCart(
                                           dataController.userList!.data!
                                               .bestsellerProducts![index]);
                                     },

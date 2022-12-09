@@ -26,14 +26,11 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   var moreOptionsVisibility;
 
   //CategoryController dependency injection//=========================
-  CategoryController categoryController = Get.put(CategoryController());
-  DataController dataController = Get.put(DataController());
+  CategoryController categoryController = Get.find();
+  DataController dataController = Get.find();
   CartController cartController = Get.find();
   @override
   void initState() {
-    categoryController.getCategoryData();
-    dataController.getUserUInfo();
-
     super.initState();
   }
 

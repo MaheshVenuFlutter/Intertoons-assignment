@@ -93,7 +93,7 @@ class _CartPageState extends State<CartPage> {
                                     onTap: () {
                                       if (cartController.getItemsForCart[index]
                                               .quantity! >
-                                          0) {
+                                          -1) {
                                         cartController.addItems(
                                             cartController
                                                 .getItemsForCart[index]
@@ -175,6 +175,10 @@ class _CartPageState extends State<CartPage> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
+                                      cartController.addItems(
+                                          cartController
+                                              .getItemsForCart[index].product!,
+                                          -20);
                                       print("delete");
                                     },
                                     child: const Icon(
@@ -244,8 +248,8 @@ class _CartPageState extends State<CartPage> {
                                 width: Dimensions.width10,
                               ),
                               BigText(
-                                  text: "\$" +
-                                      cartController.totalAmount.toString()),
+                                  text:
+                                      "Total Rs: ${cartController.totalAmountInCart.toStringAsFixed(2)}"),
                               SizedBox(
                                 width: Dimensions.width10,
                               ),
@@ -253,7 +257,9 @@ class _CartPageState extends State<CartPage> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            cartController.addTohistory();
+                          },
                           child: Container(
                             padding: EdgeInsets.only(
                               top: Dimensions.height20,

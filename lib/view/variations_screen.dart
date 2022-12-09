@@ -165,10 +165,7 @@ class _VariationScreenState extends State<VariationScreen> {
                                                 width: 100,
                                                 height: 40,
                                                 child: ElevatedButton(
-                                                  onPressed: () {
-                                                    cartController.additemToCart(
-                                                        BestsellerProduct());
-                                                  },
+                                                  onPressed: () {},
                                                   child: Text(
                                                     "add",
                                                     style: TextStyle(

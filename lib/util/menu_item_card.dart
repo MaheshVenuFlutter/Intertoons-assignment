@@ -86,7 +86,7 @@ class menuitemCard extends StatelessWidget {
                                     fontWeight: FontWeight.bold, fontSize: 22),
                               ),
                               Text(
-                                "Price:Rs ${dataController.userList!.data!.bestsellerProducts![index].price!}",
+                                " ${dataController.userList!.data!.bestsellerProducts![index].price!}",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 20),
                               ),

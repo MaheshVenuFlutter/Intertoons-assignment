@@ -178,21 +178,146 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                             if (catgeryIId
                                 .toString()
                                 .contains(search.toString())) {
-                              return menuitemCard(
-                                moreOptionsVisibility: moreOptionsVisibility,
-                                addButtonVisibility: addButtonVisibility,
-                                index: index,
-                                dataController: dataController,
-                                variationdClickHandler: () {
-                                  if (currentProduct.variations != null) {
-                                    Get.to(() => VariationScreen(
-                                          indexx: index,
-                                        ));
-                                  } else {}
+                              return currentProduct.variations == null
+                                  ? menuitemCard(
+                                      moreOptionsVisibility:
+                                          moreOptionsVisibility,
+                                      addButtonVisibility: addButtonVisibility,
+                                      index: index,
+                                      dataController: dataController,
+                                      variationdClickHandler: () {
+                                        if (currentProduct.variations != null) {
+                                          // Get.to(() => VariationScreen(
+                                          //       indexx: index,
+                                          //     ));
+                                        } else {}
 
-                                  print(currentProduct.variations);
-                                },
-                              );
+                                        print(currentProduct.variations);
+                                      },
+                                    )
+
+                                  /// variation scroller
+                                  : Container(
+                                      height: 240,
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 255, 250, 250),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: ListView.separated(
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  currentProduct.name!,
+                                                  style:
+                                                      TextStyle(fontSize: 25),
+                                                ),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Container(
+                                                  height: 120,
+                                                  width: 300,
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                        image: NetworkImage(
+                                                            currentProduct
+                                                                .image!),
+                                                        fit: BoxFit.cover),
+                                                    borderRadius:
+                                                        BorderRadius.only(
+                                                            topLeft: Radius
+                                                                .circular(12),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    12)),
+                                                  ),
+                                                ),
+                                                Container(
+                                                    width: 300,
+                                                    height: 70,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomLeft: Radius
+                                                                  .circular(12),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          12)),
+                                                      color: Color.fromARGB(
+                                                          255, 250, 217, 217),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceAround,
+                                                      children: [
+                                                        const SizedBox(
+                                                          width: 10,
+                                                        ),
+                                                        Column(
+                                                          children: [
+                                                            const SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Text(
+                                                              currentProduct
+                                                                  .variations![
+                                                                      index]
+                                                                  .title!,
+                                                              style: TextStyle(
+                                                                  fontSize: 22),
+                                                            ),
+                                                            Text(
+                                                              "Rs: ${currentProduct.variations![index].price.toString()}",
+                                                              style: TextStyle(
+                                                                  fontSize: 22),
+                                                            )
+                                                          ],
+                                                        ),
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            print(currentProduct
+                                                                .variations![
+                                                                    index]
+                                                                .title);
+                                                            cartController
+                                                                .additemToCart(
+                                                              currentProduct,
+                                                              index,
+                                                            );
+                                                          },
+                                                          child: Text(
+                                                            "add",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 25),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ))
+                                              ],
+                                            );
+                                          },
+                                          separatorBuilder: (context, index) {
+                                            return const SizedBox(
+                                              width: 10,
+                                            );
+                                          },
+                                          itemCount: currentProduct
+                                              .variations!.length),
+                                    );
                             } else {
                               return Container();
                             }

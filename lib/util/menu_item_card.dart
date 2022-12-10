@@ -108,7 +108,8 @@ class menuitemCard extends StatelessWidget {
                                     onPressed: () {
                                       cartController.additemToCart(
                                           dataController.userList!.data!
-                                              .bestsellerProducts![index]);
+                                              .bestsellerProducts![index],
+                                          index);
                                     },
                                     child: Text(
                                       "add",

@@ -11,14 +11,14 @@ class CartRepo {
   List<String> cart = [];
   List<String> cartHistory = [];
   void addToCartList(List<CartModel> cartList) {
+    var timeNow = DateTime.now().toString();
     cart = [];
 
     cartList.forEach((element) {
+      element.time = timeNow;
       return cart.add(jsonEncode(element));
     });
     sharedPreferences.setStringList("Cart-List", cart);
-
-    getCartList();
   }
 
   List<CartModel> getCartList() {
@@ -50,11 +50,13 @@ class CartRepo {
       cartHistory = sharedPreferences.getStringList("cart-history-List")!;
     }
     for (var i = 0; i < cart.length; i++) {
-      print("histor List" + cart[i]);
+      // print("histor List" + cart[i]);
       cartHistory.add(cart[i]);
     }
     removeCart();
     sharedPreferences.setStringList("cart-history-List", cartHistory);
+    // print(" the length of history list is " +
+    //     getCartHistoryList().length.toString());
 
     for (var j = 0; j < getCartHistoryList().length; j++) {}
   }
@@ -62,5 +64,10 @@ class CartRepo {
   void removeCart() {
     cart = [];
     sharedPreferences.remove("Cart-List");
+    for (var j = 0; j < getCartHistoryList().length; j++) {
+      print("the time of order is " +
+          getCartHistoryList()[j].time.toString()); //to get time of each item
+
+    }
   }
 }

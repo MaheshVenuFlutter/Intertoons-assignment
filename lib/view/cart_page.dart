@@ -98,7 +98,8 @@ class _CartPageState extends State<CartPage> {
                                             cartController
                                                 .getItemsForCart[index]
                                                 .product!,
-                                            -1);
+                                            -1,
+                                            index);
                                       } else {
                                         Get.snackbar("quantity is zero", "",
                                             backgroundColor: Colors.blue,
@@ -145,7 +146,8 @@ class _CartPageState extends State<CartPage> {
                                             cartController
                                                 .getItemsForCart[index]
                                                 .product!,
-                                            1);
+                                            1,
+                                            index);
                                       } else {
                                         Get.snackbar(
                                             "Reached maximum limit", "",
@@ -178,7 +180,8 @@ class _CartPageState extends State<CartPage> {
                                       cartController.addItems(
                                           cartController
                                               .getItemsForCart[index].product!,
-                                          -20);
+                                          -20,
+                                          index);
                                       print("delete");
                                     },
                                     child: const Icon(

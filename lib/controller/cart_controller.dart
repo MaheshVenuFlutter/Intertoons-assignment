@@ -109,7 +109,8 @@ class CartController extends GetxController {
   //
   //only for storage and shared pref
 
-  void addItems(BestsellerProduct product, int quantity) {
+  void addItems(BestsellerProduct product, int quantity, int index) {
+    print(index);
     var totalQuantity = 0;
     if (_items.containsKey(product.id!)) {
       _items.update(product.id!, (value) {
@@ -131,18 +132,33 @@ class CartController extends GetxController {
       }
     } else {
       if (quantity > -1) {
-        _items.putIfAbsent(product.id!, () {
-          return CartModel(
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            img: product.image,
-            quantity: quantity,
-            isExist: true,
-            time: DateTime.now().toString(),
-            product: product,
-          );
-        });
+        if (product.variations == null) {
+          _items.putIfAbsent(product.id!, () {
+            return CartModel(
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              img: product.image,
+              quantity: quantity,
+              isExist: true,
+              time: DateTime.now().toString(),
+              product: product,
+            );
+          });
+        } else {
+          _items.putIfAbsent(product.variations![index].id!, () {
+            return CartModel(
+              id: product.variations![index].id,
+              name: product.variations![index].title,
+              price: product.variations![index].price,
+              img: product.image,
+              quantity: quantity,
+              isExist: true,
+              time: DateTime.now().toString(),
+              product: product,
+            );
+          });
+        }
       } else {
         Get.snackbar(
             "Item count", "You should add atleast one item in the cart !",
@@ -153,15 +169,13 @@ class CartController extends GetxController {
     update();
   }
 
-  void additemToCart(
-    BestsellerProduct product,
-  ) {
+  void additemToCart(BestsellerProduct product, int index) {
     if (quantity > -1) {
-      addItems(product, quantity.value);
+      addItems(product, quantity.value, index);
       quantity.value = 0;
 
       items.forEach((key, value) {
-        print("The id is " + value.name.toString());
+        print("The id is " + value.id.toString());
       });
     } else {
       Get.snackbar("Item count", "Add at least one item",
@@ -223,5 +237,9 @@ class CartController extends GetxController {
   void clear() {
     _items = {};
     update();
+  }
+
+  List<CartModel> getCartHistoryList() {
+    return cartRepo.getCartHistoryList();
   }
 }

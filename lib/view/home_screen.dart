@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:need_to/controller/cart_controller.dart';
 
 import 'package:need_to/controller/data_controller.dart';
+import 'package:need_to/models/cart_product_model.dart';
+import 'package:need_to/models/user_model.dart';
 import 'package:need_to/util/app_colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -324,7 +326,7 @@ class BestSellerHomepageView extends StatelessWidget {
                 addButtonVisibility = true;
                 moreOptionsVisibility = false;
               } else {
-                moreOptionsVisibility = true;
+                moreOptionsVisibility = false;
               }
               return Card(
                 elevation: 5,
@@ -412,9 +414,7 @@ class BestSellerHomepageView extends StatelessWidget {
                                           child: ElevatedButton(
                                             onPressed: () {
                                               cartController.additemToCart(
-                                                  dataController.userList!.data!
-                                                          .bestsellerProducts![
-                                                      index]);
+                                                  currentProduct, index);
                                             },
                                             child: const Text(
                                               "+",

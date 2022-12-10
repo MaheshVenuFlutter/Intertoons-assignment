@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:need_to/controller/category_controller.dart';
 import 'package:need_to/util/app_colors.dart';
+import 'package:need_to/view/cart_history.dart';
 import 'package:need_to/view/categories_screen.dart';
 import 'package:need_to/view/home_screen.dart';
 
@@ -23,7 +24,7 @@ class _HostScreenState extends State<HostScreen> {
   List pages = [
     HomePage(),
     CategoriesScreen(),
-    Container(child: Text("page one")),
+    CartHistoryScreen(),
     Container(child: Text("page two")),
   ];
 

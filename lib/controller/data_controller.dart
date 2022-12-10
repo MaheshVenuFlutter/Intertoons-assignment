@@ -26,5 +26,6 @@ class DataController extends GetxController {
     } finally {
       isHomePageDataLoading(false);
     }
+    update();
   }
 }

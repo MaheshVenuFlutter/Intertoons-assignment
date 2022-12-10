@@ -320,13 +320,18 @@ class BestSellerHomepageView extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: ListView.separated(
             itemBuilder: (context, index) {
+              bool addButtonVisibility = false;
               var currentProduct =
                   dataController.userList!.data!.bestsellerProducts![index];
+
+              late String catgeryIId = dataController
+                  .userList!.data!.bestsellerProducts![index].categoryId
+                  .toString();
               if (currentProduct.variations == null) {
                 addButtonVisibility = true;
                 moreOptionsVisibility = false;
               } else {
-                moreOptionsVisibility = false;
+                moreOptionsVisibility = true;
               }
               return Card(
                 elevation: 5,
@@ -401,44 +406,63 @@ class BestSellerHomepageView extends StatelessWidget {
                                       fontSize: 20),
                                 ),
                                 const SizedBox(
-                                  width: 20,
+                                  width: 21,
                                 ),
-                                Stack(
-                                  children: [
-                                    Positioned(
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: 30,
-                                        child: Visibility(
-                                          visible: addButtonVisibility,
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              cartController.additemToCart(
-                                                  currentProduct, index);
-                                            },
-                                            child: const Text(
-                                              "+",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 25),
+                                Container(
+                                  width: 80,
+                                  child: Stack(
+                                    children: [
+                                      Positioned(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 30,
+                                          child: Visibility(
+                                            visible: addButtonVisibility,
+                                            child: ElevatedButton(
+                                              // add to cat button/=======================
+                                              onPressed: () {
+                                                print(index);
+                                                cartController.additemToCart(
+                                                    currentProduct, index);
+                                              },
+                                              child: const Text(
+                                                "+",
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 25),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    Positioned(
-                                      bottom: 0,
-                                      child: Visibility(
-                                        visible: moreOptionsVisibility,
-                                        child: const Text(
-                                          "more options",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
+                                      Positioned(
+                                        bottom: 0,
+                                        child: Center(
+                                          child: Visibility(
+                                            visible: moreOptionsVisibility,
+                                            child: Container(
+                                              width: 80,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.redAccent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              child: Center(
+                                                child: GestureDetector(
+                                                  child: const Text(
+                                                    "more",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),

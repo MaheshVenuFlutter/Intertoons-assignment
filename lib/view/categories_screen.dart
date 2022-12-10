@@ -285,6 +285,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                                                           ],
                                                         ),
                                                         ElevatedButton(
+                                                          // add to cat button/============
                                                           onPressed: () {
                                                             print(currentProduct
                                                                 .variations![

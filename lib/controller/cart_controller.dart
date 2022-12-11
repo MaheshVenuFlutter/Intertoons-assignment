@@ -13,7 +13,7 @@ class CartController extends GetxController {
   var numberOfItemsInCart = 0.obs;
 
   var totalQty = 1.obs;
-  var qt = 1.obs;
+  var qt = 0.obs;
   var quantity = 0.obs;
   var currentP = 0;
 
@@ -22,14 +22,14 @@ class CartController extends GetxController {
   get inCartItems => _inCartItems.value + quantity.value;
 
   var CartItemList = <BestsellerProduct>[].obs;
-  void removeItem() {
+  void removeItemNumber() {
     if (qt.value > 1) {
       totalQty.value--;
       qt.value--;
     }
   }
 
-  void addItem() {
+  void addItemNumber() {
     totalQty.value++;
     qt.value++;
   }
@@ -107,11 +107,11 @@ class CartController extends GetxController {
   List<CartModel> storageItems = [];
 
   void addItems(BestsellerProduct product, int quantity, int index) {
-    print(index);
-    var totalQuantity = 0;
+    var totalQuantity = 0.obs;
+
     if (_items.containsKey(product.id!)) {
       _items.update(product.id!, (value) {
-        totalQuantity = value.quantity! + quantity;
+        totalQuantity.value = value.quantity! + quantity;
 
         return CartModel(
             id: value.id,
@@ -181,11 +181,12 @@ class CartController extends GetxController {
   }
 
   int get totalItems {
-    var totalQuantity = 0;
+    var totalQuantity = 0.obs;
     _items.forEach((key, value) {
       totalQuantity += value.quantity!;
     });
-    return totalQuantity;
+    update();
+    return totalQuantity.value;
   }
 
   List<CartModel> get getItems {
@@ -195,7 +196,7 @@ class CartController extends GetxController {
   }
 
   List<CartModel> get getItemsForCart {
-    return getItems;
+    return getItems.obs;
   }
 
   double get totalAmountInCart {

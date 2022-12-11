@@ -32,7 +32,7 @@ class CartModel {
     time = json['time'];
     price = json['price'];
     img = json['img'];
-    variations:
+
     json["variations"] == null
         ? null
         : List<BestsellerProductVariation>.from(json["variations"]

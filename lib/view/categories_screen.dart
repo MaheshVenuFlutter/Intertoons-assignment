@@ -35,41 +35,48 @@ class _CategoriesScreenState extends State<CategoriesScreen>
     print("width is " + MediaQuery.of(context).size.width.toString());
     print("Hight is " + MediaQuery.of(context).size.height.toString());
     var newCat = Get.arguments;
-    if (newCat != null) {
+    if (newCat != null && search == null) {
       search = newCat;
     }
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 60, //60
-          backgroundColor: Colors.blue,
-          elevation: 0,
-          actions: [
-            InkWell(
-              onTap: () {
-                Get.to(() => CartPage());
-              },
-              child: Badge(
-                  toAnimate: true,
-                  animationType: BadgeAnimationType.scale,
-                  position: BadgePosition.topEnd(top: 15, end: 40),
-                  elevation: 0,
-                  badgeContent: Text(
-                    "hello",
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 22,
-                        color: Colors.white),
+        appBar: PreferredSize(
+            preferredSize: const Size(0, 60),
+            child: GetBuilder<CartController>(builder: (cartController) {
+              return AppBar(
+                toolbarHeight: 60, //60
+                backgroundColor: Colors.blue,
+                elevation: 0,
+                actions: [
+                  Visibility(
+                    visible: cartController.getItems.isNotEmpty ? true : false,
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(() => CartPage());
+                      },
+                      child: Badge(
+                          toAnimate: true,
+                          animationType: BadgeAnimationType.scale,
+                          position: BadgePosition.topEnd(top: 15, end: 40),
+                          elevation: 0,
+                          badgeContent: Text(
+                            cartController.getItems.length.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                                color: Colors.white),
+                          ),
+                          child: Icon(
+                            Icons.shopping_cart_checkout,
+                            size: 40,
+                          )),
+                    ),
                   ),
-                  child: Icon(
-                    Icons.shopping_cart_checkout,
-                    size: 40,
-                  )),
-            ),
-            const SizedBox(
-              width: 10,
-            )
-          ],
-        ),
+                  const SizedBox(
+                    width: 10,
+                  )
+                ],
+              );
+            })),
         body: GetBuilder<DataController>(builder: (dataController) {
           return dataController.isHomePageDataLoading.value
               ? const Center(child: CircularProgressIndicator())
@@ -299,10 +306,10 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                                                                       index]
                                                                   .title);
                                                               cartController
-                                                                  .additemToCart(
-                                                                currentProduct,
-                                                                index,
-                                                              );
+                                                                  .addItems(
+                                                                      currentProduct,
+                                                                      index,
+                                                                      1);
                                                             },
                                                             child: Text(
                                                               "add",

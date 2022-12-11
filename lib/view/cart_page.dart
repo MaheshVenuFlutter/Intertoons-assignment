@@ -265,6 +265,7 @@ class _CartPageState extends State<CartPage> {
                         GestureDetector(
                           onTap: () {
                             cartController.addTohistory();
+                            cartController.qt.value = 0;
                           },
                           child: Container(
                             padding: EdgeInsets.only(

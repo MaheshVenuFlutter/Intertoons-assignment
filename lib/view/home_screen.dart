@@ -5,9 +5,10 @@ import 'package:get/get.dart';
 import 'package:need_to/controller/cart_controller.dart';
 
 import 'package:need_to/controller/data_controller.dart';
-import 'package:need_to/models/cart_product_model.dart';
-import 'package:need_to/models/user_model.dart';
+
 import 'package:need_to/util/app_colors.dart';
+import 'package:need_to/util/dimensions.dart';
+import 'package:need_to/view/categories_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../util/icon_and_text_widget.dart';
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("new app bar"),
+        title: const Text("new app bar"),
       ),
       body: Obx(
         () => dataController.isHomePageDataLoading.value
@@ -42,8 +43,8 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          margin: const EdgeInsets.only(top: 10),
-                          height: 150,
+                          margin: EdgeInsets.only(top: Dimensions.height10),
+                          height: Dimensions.height150,
                           width: MediaQuery.of(context).size.width,
                           child: CarouselSlider.builder(
                             itemCount: dataController
@@ -60,158 +61,189 @@ class _HomePageState extends State<HomePage> {
                                   setState(() => activeIndex = index);
                                 },
                                 //autoPlay: true,
-                                height: 400),
+                                height: Dimensions.height400),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: Dimensions.height10,
                         ),
                         buildIndicator(),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: Dimensions.height10,
                     ),
                     Container(
-                      margin: const EdgeInsets.only(right: 10, left: 10),
-                      height: 240,
+                      margin: EdgeInsets.only(
+                          right: Dimensions.width10, left: Dimensions.width10),
+                      height: Dimensions.height240,
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "featured products",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 22),
+                                fontWeight: FontWeight.bold,
+                                fontSize: Dimensions.fontsize22),
                           ),
-                          const SizedBox(
-                            height: 10,
+                          SizedBox(
+                            height: Dimensions.height10,
                           ),
                           Container(
                             // featured product list view container //starts here
-                            height: 175,
+                            height: Dimensions.height175,
 
-                            width: MediaQuery.of(context).size.width - 15,
+                            width: MediaQuery.of(context).size.width -
+                                Dimensions.width15,
                             child: ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
-                                  return Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                    ),
-                                    elevation: 5,
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                    image: NetworkImage(
+                                  late String featuredProductCategories =
+                                      dataController.userList!.data!
+                                          .bestsellerProducts![index].categoryId
+                                          .toString();
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.to(CategoriesScreen(),
+                                          transition: Transition.rightToLeft,
+                                          duration: Duration(seconds: 1),
+                                          arguments: dataController
+                                              .userList!
+                                              .data!
+                                              .featuredProducts![index]
+                                              .categoryId);
+                                    },
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      elevation: 5,
+                                      child: Stack(
+                                        children: [
+                                          Positioned(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                      image: NetworkImage(
+                                                          dataController
+                                                              .userList!
+                                                              .data!
+                                                              .featuredProducts![
+                                                                  index]
+                                                              .image!),
+                                                      fit: BoxFit.cover),
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  10))),
+                                              height: Dimensions.height120,
+                                              width: Dimensions.width200,
+                                            ),
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            child: Container(
+                                              height: Dimensions.height50,
+                                              width: Dimensions.width200,
+                                              decoration: const BoxDecoration(
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Color(0xFFe8e8e8),
+                                                      offset: Offset(0, 5),
+                                                    ),
+                                                    BoxShadow(
+                                                      color: Colors.white,
+                                                      offset: Offset(0, 0),
+                                                    ),
+                                                    BoxShadow(
+                                                      color: Colors.white,
+                                                      offset: Offset(0, 0),
+                                                    ),
+                                                  ],
+                                                  //featured product details container///----------
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  10),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  10))),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        width:
+                                                            Dimensions.width10,
+                                                      ),
+                                                      Text(
                                                         dataController
                                                             .userList!
                                                             .data!
                                                             .featuredProducts![
                                                                 index]
-                                                            .image!),
-                                                    fit: BoxFit.cover),
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(10),
-                                                    topRight:
-                                                        Radius.circular(10))),
-                                            height: 120,
-                                            width: 200,
-                                          ),
-                                        ),
-                                        Positioned(
-                                          bottom: 0,
-                                          child: Container(
-                                            height: 50,
-                                            width: 200,
-                                            decoration: const BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Color(0xFFe8e8e8),
-                                                    offset: Offset(0, 5),
+                                                            .name!,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                            fontSize: Dimensions
+                                                                .fontsize16,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                    ],
                                                   ),
-                                                  BoxShadow(
-                                                    color: Colors.white,
-                                                    offset: Offset(0, 0),
+                                                  const SizedBox(
+                                                    width: 5,
                                                   ),
-                                                  BoxShadow(
-                                                    color: Colors.white,
-                                                    offset: Offset(0, 0),
+                                                  Row(
+                                                    children: [
+                                                      SizedBox(
+                                                        width:
+                                                            Dimensions.width10,
+                                                      ),
+                                                      Text(
+                                                        "Price Rs: ${dataController.userList!.data!.featuredProducts![index].price!}",
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .redAccent,
+                                                            fontSize: Dimensions
+                                                                .fontsize18),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
-                                                //featured product details container///----------
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(10),
-                                                    bottomRight:
-                                                        Radius.circular(10))),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      dataController
-                                                          .userList!
-                                                          .data!
-                                                          .featuredProducts![
-                                                              index]
-                                                          .name!,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    const SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text(
-                                                      "Price Rs: ${dataController.userList!.data!.featuredProducts![index].price!}",
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Colors.redAccent,
-                                                          fontSize: 18),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
                                 separatorBuilder: (context, index) {
                                   return SizedBox(
-                                    width: 10,
+                                    width: Dimensions.width10,
                                   );
                                 },
                                 itemCount: dataController
@@ -222,15 +254,17 @@ class _HomePageState extends State<HomePage> {
                     ),
                     // additional banner//--------------------------
                     Container(
-                      height: 150,
+                      height: Dimensions.height150,
                       width: MediaQuery.of(context).size.width,
                       child: ListView.separated(
                         itemCount: dataController
                             .userList!.data!.additionalBanners!.length,
                         itemBuilder: (context, index) {
                           return Container(
-                            margin: const EdgeInsets.only(right: 10, left: 10),
-                            height: 120,
+                            margin: EdgeInsets.only(
+                                right: Dimensions.width10,
+                                left: Dimensions.width10),
+                            height: Dimensions.height120,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -251,20 +285,22 @@ class _HomePageState extends State<HomePage> {
                         },
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: Dimensions.height10,
                     ),
                     Container(
-                      height: 600,
+                      height: Dimensions.height600,
                       width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(right: 10, left: 10),
+                      margin: EdgeInsets.only(
+                          right: Dimensions.width10, left: Dimensions.width10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "Best Sellers",
                             style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 22),
+                                fontWeight: FontWeight.bold,
+                                fontSize: Dimensions.fontsize22),
                           ),
                           BestSellerHomepageView(
                               dataController: dataController,
@@ -315,8 +351,8 @@ class BestSellerHomepageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DataController>(builder: (daTaController) {
       return Container(
-        margin: const EdgeInsets.only(top: 10),
-        height: 500,
+        margin: EdgeInsets.only(top: Dimensions.height10),
+        height: Dimensions.height500,
         width: MediaQuery.of(context).size.width,
         child: ListView.separated(
             itemBuilder: (context, index) {
@@ -324,7 +360,7 @@ class BestSellerHomepageView extends StatelessWidget {
               var currentProduct =
                   dataController.userList!.data!.bestsellerProducts![index];
 
-              late String catgeryIId = dataController
+              late String BestSellerProductcatgeryIId = dataController
                   .userList!.data!.bestsellerProducts![index].categoryId
                   .toString();
               if (currentProduct.variations == null) {
@@ -339,7 +375,7 @@ class BestSellerHomepageView extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Container(
-                  height: 150,
+                  height: Dimensions.height150,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     boxShadow: const [
@@ -363,8 +399,8 @@ class BestSellerHomepageView extends StatelessWidget {
                     /// Best seller image row--------------------------------------------
                     children: [
                       Container(
-                        height: 150,
-                        width: 150,
+                        height: Dimensions.height150,
+                        width: Dimensions.width150,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
@@ -372,11 +408,11 @@ class BestSellerHomepageView extends StatelessWidget {
                                     .data!.bestsellerProducts![index].image!),
                                 fit: BoxFit.cover)),
                       ),
-                      const SizedBox(
-                        width: 10,
+                      SizedBox(
+                        width: Dimensions.width10,
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 10),
+                        margin: EdgeInsets.only(top: Dimensions.height10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -386,13 +422,13 @@ class BestSellerHomepageView extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               dataController.userList!.data!
                                   .bestsellerProducts![index].name!,
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontFamily: "Acme",
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20),
+                                  fontSize: Dimensions.fontsize20),
                             ),
-                            const SizedBox(
-                              height: 10,
+                            SizedBox(
+                              height: Dimensions.height10,
                             ),
                             //price of the product==================
                             Row(
@@ -400,22 +436,22 @@ class BestSellerHomepageView extends StatelessWidget {
                                 Text(
                                   overflow: TextOverflow.ellipsis,
                                   "Price: ${dataController.userList!.data!.bestsellerProducts![index].price!}",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontFamily: "Acme",
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20),
+                                      fontSize: Dimensions.fontsize20),
                                 ),
                                 const SizedBox(
                                   width: 21,
                                 ),
                                 Container(
-                                  width: 80,
+                                  width: Dimensions.width80,
                                   child: Stack(
                                     children: [
                                       Positioned(
                                         child: SizedBox(
-                                          width: 50,
-                                          height: 30,
+                                          width: Dimensions.width50,
+                                          height: Dimensions.height30,
                                           child: Visibility(
                                             visible: addButtonVisibility,
                                             child: ElevatedButton(
@@ -425,11 +461,12 @@ class BestSellerHomepageView extends StatelessWidget {
                                                 cartController.additemToCart(
                                                     currentProduct, index);
                                               },
-                                              child: const Text(
+                                              child: Text(
                                                 "+",
                                                 style: TextStyle(
                                                     fontWeight: FontWeight.bold,
-                                                    fontSize: 25),
+                                                    fontSize:
+                                                        Dimensions.fontsize25),
                                               ),
                                             ),
                                           ),
@@ -441,19 +478,34 @@ class BestSellerHomepageView extends StatelessWidget {
                                           child: Visibility(
                                             visible: moreOptionsVisibility,
                                             child: Container(
-                                              width: 80,
+                                              width: Dimensions.width50,
                                               decoration: BoxDecoration(
                                                   color: Colors.redAccent,
                                                   borderRadius:
                                                       BorderRadius.circular(5)),
                                               child: Center(
                                                 child: GestureDetector(
-                                                  child: const Text(
+                                                  onTap: () {
+                                                    ///sending adata to netx page===============================
+                                                    Get.to(CategoriesScreen(),
+                                                        transition: Transition
+                                                            .rightToLeft,
+                                                        duration: Duration(
+                                                            seconds: 1),
+                                                        arguments: dataController
+                                                            .userList!
+                                                            .data!
+                                                            .featuredProducts![
+                                                                index]
+                                                            .categoryId);
+                                                  },
+                                                  child: Text(
                                                     "more",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
-                                                        fontSize: 20),
+                                                        fontSize: Dimensions
+                                                            .fontsize20),
                                                   ),
                                                 ),
                                               ),
@@ -466,8 +518,8 @@ class BestSellerHomepageView extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
+                            SizedBox(
+                              height: Dimensions.height10,
                             ),
 
                             /// veg non veg details
@@ -507,8 +559,8 @@ class BestSellerHomepageView extends StatelessWidget {
               );
             },
             separatorBuilder: (context, index) {
-              return const SizedBox(
-                height: 15,
+              return SizedBox(
+                height: Dimensions.height15,
               );
             },
             itemCount:

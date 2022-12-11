@@ -5,7 +5,6 @@ import 'package:need_to/repository/cartRepo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/user_model.dart';
-import '../util/app_colors.dart';
 
 class CartController extends GetxController {
   final CartRepo cartRepo;
@@ -106,8 +105,6 @@ class CartController extends GetxController {
   Map<int, CartModel> get items => _items;
 
   List<CartModel> storageItems = [];
-  //
-  //only for storage and shared pref
 
   void addItems(BestsellerProduct product, int quantity, int index) {
     print(index);
@@ -117,24 +114,23 @@ class CartController extends GetxController {
         totalQuantity = value.quantity! + quantity;
 
         return CartModel(
-          id: value.id,
-          name: value.name,
-          price: value.price,
-          img: value.img,
-          quantity: value.quantity! + quantity,
-          isExist: true,
-          time: DateTime.now().toString(),
-          product: product,
-        );
+            id: value.id,
+            name: value.name,
+            price: value.price,
+            img: value.img,
+            quantity: value.quantity! + quantity,
+            isExist: true,
+            time: DateTime.now().toString(),
+            product: product,
+            variations: value.variations);
       });
       if (totalQuantity < 0) {
         _items.remove(product.id);
       }
     } else {
-      if (quantity > -1) {
-        if (product.variations == null) {
-          _items.putIfAbsent(product.id!, () {
-            return CartModel(
+      if (product.variations == null) {
+        _items.putIfAbsent(product.id!, () {
+          return CartModel(
               id: product.id,
               name: product.name,
               price: product.price,
@@ -143,11 +139,11 @@ class CartController extends GetxController {
               isExist: true,
               time: DateTime.now().toString(),
               product: product,
-            );
-          });
-        } else {
-          _items.putIfAbsent(product.variations![index].id!, () {
-            return CartModel(
+              variations: product.variations);
+        });
+      } else {
+        _items.putIfAbsent(product.id!, () {
+          return CartModel(
               id: product.variations![index].id,
               name: product.variations![index].title,
               price: product.variations![index].price,
@@ -156,13 +152,8 @@ class CartController extends GetxController {
               isExist: true,
               time: DateTime.now().toString(),
               product: product,
-            );
-          });
-        }
-      } else {
-        Get.snackbar(
-            "Item count", "You should add atleast one item in the cart !",
-            backgroundColor: AppColors.mainColor, colorText: Colors.white);
+              variations: product.variations);
+        });
       }
     }
     cartRepo.addToCartList(getItems);
@@ -172,7 +163,7 @@ class CartController extends GetxController {
   void additemToCart(BestsellerProduct product, int index) {
     if (quantity > -1) {
       addItems(product, quantity.value, index);
-      quantity.value = 0;
+      quantity.value = 1;
 
       items.forEach((key, value) {
         print("The id is " + value.id.toString());

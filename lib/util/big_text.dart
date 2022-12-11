@@ -25,7 +25,7 @@ class BigText extends StatelessWidget {
       style: TextStyle(
           color: color,
           fontWeight: FontWeight.w400,
-          fontSize: size == 0 ? Dimensions.fontSize20 : size),
+          fontSize: size == 0 ? Dimensions.fontsize20 : size),
     );
   }
 }

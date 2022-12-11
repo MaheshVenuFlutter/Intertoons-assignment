@@ -4,37 +4,41 @@ class Dimensions {
   static double screenHeight = Get.context!.height;
   static double screenWidth = Get.context!.width;
 
-  static double pageViewContainer = screenHeight / 3.72;
-  static double pageViewTextContainer = screenHeight / 7.45;
-  static double pageView = screenHeight / 2.82;
-
 //dynamic width
-  static double width2 = screenHeight / 410.28;
-  static double width3 = screenHeight / 273.52;
-  static double width5 = screenHeight / 164.11;
-  static double width10 = screenHeight / 82.05;
-  static double width20 = screenHeight / 41.20;
-  static double width30 = screenHeight / 27.35;
-  static double width40 = screenHeight / 20.51;
-  static double width35 = screenHeight / 23.44;
-  static double width12 = screenHeight / 68.38;
+
+  static double width10 = screenWidth / 39.27;
+  static double width20 = screenWidth / 19.63;
+  static double width15 = screenWidth / 26.18;
+  static double width200 = screenWidth / 1.96;
+  static double width150 = screenWidth / 2.61;
+  static double width80 = screenWidth / 4.90;
+  static double width50 = screenWidth / 7.85;
+  static double width30 = screenWidth / 13.09;
 
 //dynamic height
   static double height8 = screenHeight / 102.5;
-  static double height10 = screenHeight / 82.05;
-  static double height15 = screenHeight / 54.70;
-  static double height20 = screenHeight / 41.20;
-  static double height30 = screenHeight / 27.35;
-  static double height40 = screenHeight / 20.51;
-  static double height50 = screenHeight / 16.41;
-// font size
-  static double size26 = screenHeight / 31.56;
-  static double size15 = screenHeight / 54.70;
+  static double height80 = screenHeight / 9.76;
+  static double height20 = screenHeight / 39.05;
+  static double height50 = screenHeight / 15.62;
+  static double height30 = screenHeight / 26.03;
+  static double height10 = screenHeight / 78.10;
+  static double height40 = screenHeight / 19.52;
+  static double height15 = screenHeight / 52.0;
+  static double height3 = screenHeight / 26.06;
+  static double height150 = screenHeight / 5.20;
+  static double height500 = screenHeight / 1.52;
+  static double height600 = screenHeight / 1.30;
+  static double height120 = screenHeight / 6.50;
+  static double height175 = screenHeight / 4.46;
+  static double height240 = screenHeight / 3.25;
+  static double height400 = screenHeight / 1.35;
 
-  static double fontSize15 = screenHeight / 54.70;
-  static double fontSize20 = screenHeight / 41.20;
-  static double fontSize14 = screenHeight / 58.61;
-  static double fontSize26 = screenHeight / 31.56;
+// font size
+  static double fontsize20 = screenWidth / 19.63;
+  static double fontsize25 = screenWidth / 15.70;
+  static double fontsize22 = screenWidth / 17.85;
+  static double fontsize18 = screenWidth / 21.81;
+  static double fontsize16 = screenWidth / 24.54;
 
   //radious
   static double radious20 = screenHeight / 41.20;
@@ -49,7 +53,7 @@ class Dimensions {
   static double popularfoodimageSize350 = screenHeight / 2.34;
   //icon size
   static double iconSize16 = screenHeight / 51.28;
-  static double iconSize24 = screenHeight / 34.19;
+  static double iconSize30 = screenWidth / 13.09;
 
   static double containerSize120 = screenHeight / 6.83;
 

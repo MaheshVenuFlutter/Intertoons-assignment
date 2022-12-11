@@ -24,7 +24,7 @@ class _HostScreenState extends State<HostScreen> {
   List pages = [
     HomePage(),
     CategoriesScreen(),
-    CartHistoryScreen(),
+    CartHistory(),
     Container(child: Text("page two")),
   ];
 

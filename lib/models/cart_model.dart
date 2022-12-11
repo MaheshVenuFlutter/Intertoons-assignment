@@ -8,6 +8,7 @@ class CartModel {
   bool? isExist;
   String? time;
   String? img;
+  List<BestsellerProductVariation>? variations;
 
   BestsellerProduct? product;
 
@@ -20,6 +21,7 @@ class CartModel {
     this.price,
     this.img,
     this.product,
+    this.variations,
   });
 
   CartModel.fromJson(Map<String, dynamic> json) {
@@ -30,7 +32,11 @@ class CartModel {
     time = json['time'];
     price = json['price'];
     img = json['img'];
-
+    variations:
+    json["variations"] == null
+        ? null
+        : List<BestsellerProductVariation>.from(json["variations"]
+            .map((x) => BestsellerProductVariation.fromJson(x)));
     product = BestsellerProduct.fromJson(json['product']);
   }
 
@@ -44,6 +50,9 @@ class CartModel {
       "isExist": this.isExist,
       "time": this.time,
       "product": this.product!.toJson(),
+      "variations": variations == null
+          ? null
+          : List<dynamic>.from(variations!.map((x) => x.toJson())),
     };
   }
 }

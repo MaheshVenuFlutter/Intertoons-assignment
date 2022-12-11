@@ -34,7 +34,7 @@ class _CartPageState extends State<CartPage> {
                     margin: const EdgeInsets.all(10),
                     elevation: 2,
                     child: Container(
-                      height: 150,
+                      height: Dimensions.height150,
                       width: double.maxFinite,
                       child: Row(
                         children: [
@@ -45,49 +45,52 @@ class _CartPageState extends State<CartPage> {
                                         .getItemsForCart[index].img!),
                                     fit: BoxFit.cover),
                                 borderRadius: BorderRadius.circular(12)),
-                            height: 150,
-                            width: 150,
+                            height: Dimensions.height150,
+                            width: Dimensions.width150,
                           ),
-                          const SizedBox(
-                            width: 10,
+                          SizedBox(
+                            width: Dimensions.width10,
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: Dimensions.height10,
                               ),
                               Text(
                                 cartController.getItemsForCart[index].name!,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: Dimensions.fontsize18),
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: Dimensions.height10,
                               ),
                               Text(
                                 "Price: ${cartController.getItemsForCart[index].price!}",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 22),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: Dimensions.fontsize22),
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: Dimensions.height10,
                               ),
                               Text(
                                 "quantity: ${cartController.getItemsForCart[index].quantity!}"
                                     .toString(),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: Dimensions.fontsize20),
                               ),
-                              const SizedBox(
-                                height: 10,
+                              SizedBox(
+                                height: Dimensions.height10,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const SizedBox(
-                                    width: 20,
+                                  SizedBox(
+                                    width: Dimensions.width20,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -116,15 +119,15 @@ class _CartPageState extends State<CartPage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                           color: Colors.blue),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.remove,
-                                        size: 30,
+                                        size: Dimensions.iconSize30,
                                         color: Colors.white,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
+                                  SizedBox(
+                                    width: Dimensions.width10,
                                   ),
                                   Text(
                                     cartController
@@ -132,10 +135,10 @@ class _CartPageState extends State<CartPage> {
                                         .toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 25),
+                                        fontSize: Dimensions.fontsize25),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
+                                  SizedBox(
+                                    width: Dimensions.width10,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -165,15 +168,15 @@ class _CartPageState extends State<CartPage> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                           color: Colors.blue),
-                                      child: const Icon(
+                                      child: Icon(
                                         Icons.add,
-                                        size: 30,
+                                        size: Dimensions.iconSize30,
                                         color: Colors.white,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 30,
+                                  SizedBox(
+                                    width: Dimensions.width30,
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -184,9 +187,9 @@ class _CartPageState extends State<CartPage> {
                                           index);
                                       print("delete");
                                     },
-                                    child: const Icon(
+                                    child: Icon(
                                       Icons.delete,
-                                      size: 35,
+                                      size: Dimensions.iconSize30,
                                       color: Colors.redAccent,
                                     ),
                                   ),
@@ -203,8 +206,8 @@ class _CartPageState extends State<CartPage> {
                   );
                 },
                 separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 15,
+                  return SizedBox(
+                    height: Dimensions.height15,
                   );
                 },
                 itemCount: cartController.getItemsForCart.length),

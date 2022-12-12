@@ -457,9 +457,8 @@ class BestSellerHomepageView extends StatelessWidget {
                                             child: ElevatedButton(
                                               // add to cat button/=======================
                                               onPressed: () {
-                                                print(index);
-                                                cartController.additemToCart(
-                                                    currentProduct, index);
+                                                cartController.addItems(
+                                                    currentProduct, index, 1);
                                               },
                                               child: Text(
                                                 "+",
@@ -490,12 +489,13 @@ class BestSellerHomepageView extends StatelessWidget {
                                                     Get.to(CategoriesScreen(),
                                                         transition: Transition
                                                             .rightToLeft,
-                                                        duration: Duration(
-                                                            seconds: 1),
+                                                        duration:
+                                                            const Duration(
+                                                                seconds: 1),
                                                         arguments: dataController
                                                             .userList!
                                                             .data!
-                                                            .featuredProducts![
+                                                            .bestsellerProducts![
                                                                 index]
                                                             .categoryId);
                                                   },

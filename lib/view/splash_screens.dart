@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:need_to/repository/cartRepo.dart';
+
 import 'package:need_to/view/host_Screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     animation = CurvedAnimation(parent: controller, curve: Curves.linear);
 
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (c) => const HostScreen()));
     });
@@ -64,12 +64,6 @@ class _SplashScreenState extends State<SplashScreen>
               ),
             ),
           ),
-          Center(
-            child: Image.asset(
-              "assets/image/it's.png",
-              width: Dimensions.splashImg,
-            ),
-          )
         ],
       ),
     );

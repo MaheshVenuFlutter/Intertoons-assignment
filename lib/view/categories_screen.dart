@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:need_to/controller/cart_controller.dart';
 import 'package:need_to/controller/category_controller.dart';
 import 'package:need_to/controller/data_controller.dart';
-import 'package:need_to/util/dimensions.dart';
+
 import 'package:need_to/view/cart_page.dart';
 
 import '../models/user_model.dart';
@@ -22,6 +22,7 @@ class CategoriesScreen extends StatefulWidget {
 class _CategoriesScreenState extends State<CategoriesScreen>
     with TickerProviderStateMixin {
   String search = "";
+  String selectedItem = "";
   var addButtonVisibility;
   var moreOptionsVisibility;
 
@@ -29,15 +30,16 @@ class _CategoriesScreenState extends State<CategoriesScreen>
   CategoryController categoryController = Get.find();
   DataController dataController = Get.find();
   CartController cartController = Get.find();
+  var newCat = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
-    print("width is " + MediaQuery.of(context).size.width.toString());
-    print("Hight is " + MediaQuery.of(context).size.height.toString());
-    var newCat = Get.arguments;
-    if (newCat != null && search == null) {
+    if (newCat != null) {
       search = newCat;
+    } else {
+      search = selectedItem;
     }
+
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: const Size(0, 60),
@@ -116,7 +118,8 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                                           .categoryList!.data![index].catId,
                                     );
                                     setState(() {
-                                      search = categoryController
+                                      newCat = null;
+                                      selectedItem = categoryController
                                           .categoryList!.data![index].catId
                                           .toString();
                                     });
@@ -217,6 +220,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                                               BorderRadius.circular(12),
                                         ),
                                         child: ListView.separated(
+                                            physics: BouncingScrollPhysics(),
                                             scrollDirection: Axis.horizontal,
                                             itemBuilder: (context, index) {
                                               return Column(
@@ -301,15 +305,62 @@ class _CategoriesScreenState extends State<CategoriesScreen>
                                                           ElevatedButton(
                                                             // add to cat button/============
                                                             onPressed: () {
-                                                              print(currentProduct
-                                                                  .variations![
-                                                                      index]
-                                                                  .title);
-                                                              cartController
-                                                                  .addItems(
-                                                                      currentProduct,
-                                                                      index,
-                                                                      1);
+                                                              print("helloo");
+                                                              if (currentProduct
+                                                                      .variations ==
+                                                                  null) {
+                                                                cartController
+                                                                    .addItems(
+                                                                        currentProduct,
+                                                                        index,
+                                                                        1);
+                                                              } else {
+                                                                cartController
+                                                                    .additemToCart(
+                                                                  BestsellerProduct(
+                                                                    id: currentProduct
+                                                                        .variations![
+                                                                            index]
+                                                                        .id,
+                                                                    name: currentProduct
+                                                                        .variations![
+                                                                            index]
+                                                                        .title,
+                                                                    sku: currentProduct
+                                                                        .sku,
+                                                                    categoryId:
+                                                                        currentProduct
+                                                                            .categoryId,
+                                                                    categoryName:
+                                                                        currentProduct
+                                                                            .categoryName,
+                                                                    isVeg: currentProduct
+                                                                        .isVeg,
+                                                                    menuStatus:
+                                                                        currentProduct
+                                                                            .menuStatus,
+                                                                    description:
+                                                                        currentProduct
+                                                                            .description,
+                                                                    price: currentProduct
+                                                                        .variations![
+                                                                            index]
+                                                                        .price,
+                                                                    specialPrice:
+                                                                        currentProduct
+                                                                            .specialPrice,
+                                                                    availableFrom:
+                                                                        currentProduct
+                                                                            .availableFrom,
+                                                                    availableTo:
+                                                                        currentProduct
+                                                                            .availableTo,
+                                                                    image: currentProduct
+                                                                        .image,
+                                                                  ),
+                                                                  index,
+                                                                );
+                                                              }
                                                             },
                                                             child: Text(
                                                               "add",

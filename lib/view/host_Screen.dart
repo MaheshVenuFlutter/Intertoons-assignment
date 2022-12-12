@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:need_to/controller/category_controller.dart';
 import 'package:need_to/util/app_colors.dart';
 import 'package:need_to/view/cart_history.dart';
+
 import 'package:need_to/view/categories_screen.dart';
 import 'package:need_to/view/home_screen.dart';
 
@@ -22,15 +23,13 @@ class _HostScreenState extends State<HostScreen> {
 
   int _selectedIndex = 0;
   List pages = [
-    HomePage(),
+    const HomePage(),
     CategoriesScreen(),
     CartHistory(),
-    Container(child: Text("page two")),
+    Container(child: const Center(child: Text("page two"))),
   ];
 
-  void ontapNav(int index) {
-    print(index);
-  }
+  void ontapNav(int index) {}
 
   @override
   Widget build(BuildContext context) {

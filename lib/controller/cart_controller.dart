@@ -22,17 +22,6 @@ class CartController extends GetxController {
   get inCartItems => _inCartItems.value + quantity.value;
 
   var CartItemList = <BestsellerProduct>[].obs;
-  void removeItemNumber() {
-    if (qt.value > 1) {
-      totalQty.value--;
-      qt.value--;
-    }
-  }
-
-  void addItemNumber() {
-    totalQty.value++;
-    qt.value++;
-  }
 
   void addToCartList(BestsellerProduct product) {
     if (!CartItemList.contains(product)) {
@@ -128,33 +117,18 @@ class CartController extends GetxController {
         _items.remove(product.id);
       }
     } else {
-      if (product.variations == null) {
-        _items.putIfAbsent(product.id!, () {
-          return CartModel(
-              id: product.id,
-              name: product.name,
-              price: product.price,
-              img: product.image,
-              quantity: quantity,
-              isExist: true,
-              time: DateTime.now().toString(),
-              product: product,
-              variations: product.variations);
-        });
-      } else {
-        _items.putIfAbsent(product.id!, () {
-          return CartModel(
-              id: product.variations![index].id,
-              name: product.variations![index].title,
-              price: product.variations![index].price,
-              img: product.image,
-              quantity: quantity,
-              isExist: true,
-              time: DateTime.now().toString(),
-              product: product,
-              variations: product.variations);
-        });
-      }
+      _items.putIfAbsent(product.id!, () {
+        return CartModel(
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            img: product.image,
+            quantity: quantity,
+            isExist: true,
+            time: DateTime.now().toString(),
+            product: product,
+            variations: product.variations);
+      });
     }
     cartRepo.addToCartList(getItems);
     update();
